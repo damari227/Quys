@@ -32,3 +32,13 @@ body {
 	width: 20px;
 	height: 20px;
 }
+
+.wrapper .tombol button {
+	background: rgb(87, 30, 9);
+	padding: 10px;
+	border-radius: 20px;
+	color: #eee;
+	cursor: pointer;
+	display: block;
+	margin-left: auto;
+}
