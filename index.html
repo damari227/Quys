@@ -3,6 +3,8 @@
 <head>
 
 	<meta name="viewport" content="initial-scale=1,width=device-width">
+
+	<!-- Import css -->
 	<link rel="stylesheet" type="text/css" href="style.css">
 
 
@@ -12,20 +14,23 @@
 </head>
 <body onload="showWrapper()">
 
-
+	<div id="skor"></div>
+	<div id="outro"></div>
 	<div class="wrapper">
 		<div class="body-wrapper">
 			<div class="soal"></div>
-			<div class="jawaban"></div>
+			<div class="jawaban" id="jawaban"></div>
 			<div class="tombol">
-				<button id="cek">Yakin?</button>
+				<button id="cek" data-soal="">Yakin?</button>
 			</div>
 		</div>
 	</div>
 
 
-
+	<!-- Import javascript -->
 	<script type="text/javascript" src="script.js"></script>
+	<!-- Import sweetalert -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 </body>
 </html>

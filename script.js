@@ -1,30 +1,47 @@
 const body = document.getElementsByTagName('body')[0];
 const wrapper = document.getElementsByClassName('wrapper')[0];
 const tombol = document.getElementById('cek');
+const skor = document.getElementById('skor');
+const outro = document.getElementById('outro');
 
+// Ini soal nya
 const daftarSoal = [
 	{
 		soal : "Nama kapten pinguin?",
 		pilihJawaban : ["Rapi","Boris","Agus"],
 		jawaban : "Agus"
+	},
+	{
+		soal : "Nama orang tua yang sering di bully",
+		pilihJawaban : ["Boris","Boris","Boris"],
+		jawaban : "Boris"
+	},
+	{
+		soal : "Nama bapak nya dhika",
+		pilihJawaban : ["Tumari","Rolan","Edi"],
+		jawaban : "Tumari"
 	}
 ];
 
+// Menampilkan kotak kerja ketika halaman di load
 const showWrapper = () => {
+	skor.innerHTML = 0;
 	wrapper.style.opacity = 1;
-	dapatkanSoal();
+	dapatkanSoal(0);
 }
 
-
-const dapatkanSoal = () => {
+// Mendapatkan soal ketika halaman di load, atau pun lanjut soal
+const dapatkanSoal = (i) => {
 	let soal = wrapper.getElementsByClassName('soal')[0];
-	soal.innerHTML = daftarSoal[0].soal;
-	let daftarJawaban = daftarSoal[0].pilihJawaban;
+	soal.innerHTML = daftarSoal[i].soal;
+	let daftarJawaban = daftarSoal[i].pilihJawaban;
+
+	tombol.setAttribute('value', i);
+
+	let jawaban = document.getElementById('jawaban');
+	jawaban.innerHTML = "";
 
 	daftarJawaban.forEach((data) => {
-
-		let jawaban = document.getElementsByClassName('jawaban')[0];
-
 		// Membuat element input jawaban
 		let input = document.createElement('input');
 
@@ -47,15 +64,37 @@ const dapatkanSoal = () => {
 	});
 }
 
+// Handle ketika tombol yakin di klik
 tombol.addEventListener('click', () => {
-	
-	let jawabanBener = daftarSoal[0].jawaban;
+	let soal = parseInt(tombol.getAttribute('value'));
+	let jawabanBener = daftarSoal[soal].jawaban;
 	let jawabanDiPilih = document.querySelector('input[type=radio]:checked').value;
 
+	// Cek jawaban
 	if (jawabanBener == jawabanDiPilih) {
-		alert('Bener');
-	} else {
-		alert('Salah');
-	}
+		let totalSkor = parseInt(skor.innerHTML);
+		skor.innerHTML = totalSkor + 1;
 
+		swal({
+			text:'Benar',
+			icon:'success'
+		})
+	} else {
+		swal({
+			text:'Salah',
+			icon:'warning'
+		})
+	}
+	
+	// Load soal baru
+	if ((soal + 1) == daftarSoal.length) {
+
+		outro.innerHTML = "Game selesai";
+		wrapper.style.display = "none";
+	
+	} else {
+	
+		dapatkanSoal(soal + 1);
+	
+	}
 });
